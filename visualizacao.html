@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.5" />
+<title>Campeonato</title>
+  <link rel="icon" href="imagens/AC SOCCER.png" type="image/x-icon">
+  <link rel="icon" href="imagens/AC SOCCER.png" sizes="16x16" />
+  <link rel="icon" href="imagens/AC SOCCER.png" sizes="32x32" type="image/png" />
+  <link rel="icon" href="imagens/AC SOCCER.png" sizes="48x48" type="image/png" />
+  <link rel="apple-touch-icon" href="imagens/AC SOCCER.png">
+<style>
+  :root {
+    --blue: #1565c0;
+    --blue-light: #1976d2;
+    --blue-dark: #0d47a1;
+    --gray-light: #f5f5f5;
+    --gray-medium: #ccc;
+    --gray-dark: #555;
+    --green: #388e3c;
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--gray-light);
+    margin: 0; padding: 1.5rem;
+    color: var(--gray-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  h1 {
+    color: var(--blue-dark);
+    margin-bottom: 1rem;
+    user-select: none;
+  }
+  .tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .tab-btn {
+    background: var(--gray-medium);
+    border: none;
+    border-radius: 6px 6px 0 0;
+    padding: 0.5rem 1.3rem;
+    font-weight: 700;
+    color: var(--blue-dark);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgb(0 0 0 / 0.12);
+    transition: background-color 0.3s, color 0.3s;
+    user-select: none;
+  }
+  .tab-btn:hover:not(.active) {
+    background: var(--blue-light);
+    color: white;
+  }
+  .tab-btn.active {
+    background: var(--blue-dark);
+    color: white;
+    cursor: default;
+    box-shadow: inset 0 -4px 0 0 var(--green);
+  }
+  .tab-content {
+    background: white;
+    border-radius: 0 10px 10px 10px;
+    padding: 1rem 1.4rem 1.6rem;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 0.15);
+    min-height: 350px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 0.95rem;
+  }
+  th, td {
+    border: 1px solid var(--gray-medium);
+    padding: 0.5rem 0.7rem;
+    text-align: center;
+    user-select: none;
+  }
+  th {
+    background: var(--blue-light);
+    color: white;
+    font-weight: 700;
+  }
+  #championsList {
+    max-height: 320px;
+    overflow-y: auto;
+    padding-left: 1rem;
+    margin-top: 0.2rem;
+  }
+  #championsList li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+  }
+  button {
+    margin-top: 1rem;
+    padding: 0.45rem 1.2rem;
+    cursor: pointer;
+    background-color: var(--blue-light);
+    border: none;
+    color: white;
+    border-radius: 6px;
+    font-weight: 700;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 0.22);
+    transition: background-color 0.25s;
+    user-select: none;
+  }
+  button:hover {
+    background-color: var(--blue-dark);
+  }
+  @media (max-width: 600px) {
+    .tab-content {
+      padding: 1rem 0.8rem 1.2rem;
+      min-height: auto;
+    }
+  }
+  .regulamento{
+    margin: 35px;
+  }
+  .nomes{
+    margin: 5px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Campeonato</h1>
+
+<div class="tabs" role="tablist" aria-label="Divisões e Campeões">
+  <button class="tab-btn active" data-tab="div1Tab" role="tab" aria-selected="true" aria-controls="div1Tab">1ª Divisão</button>
+  <button class="tab-btn" data-tab="div2Tab" role="tab" aria-selected="false" aria-controls="div2Tab">2ª Divisão</button>
+  <button class="tab-btn" data-tab="championsTab" role="tab" aria-selected="false" aria-controls="championsTab">Exibir Campeões</button>
+</div>
+
+<div class="regulamento">
+<!--<a href="https://docs.google.com/document/d/17sH4cub7ZNA556q0lkYZAYDw_wrCn9QhsNVXVaJN1lI/edit?tab=t.0" class="nomes">Regulamento</a>-->
+<a href="https://docs.google.com/document/d/1fJvNCtMInNa6IOVDRUuFK4oItNYUhYTJ/edit?usp=drive_link&ouid=112149196183749777104&rtpof=true&sd=true" class="nomes">Termo de Ciência</a>
+<a href="https://docs.google.com/document/d/1YvDHJW8iK692UPBV45GlIb_anlam6Bmx/edit?usp=sharing&ouid=112149196183749777104&rtpof=true&sd=true" class="nomes">Nota de Repúdio</a>
+</div>
+  
+<div id="div1Tab" class="tab-content" role="tabpanel" tabindex="0" aria-labelledby="div1Tab">
+  <h2>1ª Divisão</h2>
+  <table id="tableDiv1">
+    <thead>
+      <tr>
+        <th>Posição</th>
+        <th>Nome</th>
+        <th>Pontos</th>
+        <th>Jogos</th>
+        <th>Vitórias</th>
+        <th>Empates</th>
+        <th>Derrotas</th>
+        <th>Gols</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<div id="div2Tab" class="tab-content" role="tabpanel" tabindex="0" aria-labelledby="div2Tab" hidden>
+  <h2>2ª Divisão</h2>
+  <table id="tableDiv2">
+    <thead>
+      <tr>
+        <th>Posição</th>
+        <th>Nome</th>
+        <th>Pontos</th>
+        <th>Jogos</th>
+        <th>Vitórias</th>
+        <th>Empates</th>
+        <th>Derrotas</th>
+        <th>Gols</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<div id="championsTab" class="tab-content" role="tabpanel" tabindex="0" aria-labelledby="championsTab" hidden>
+  <h2>Campeões Anteriores</h2>
+  <ul id="championsList" aria-live="polite" aria-relevant="additions removals"></ul>
+  <button id="btnExportChampionsPDF" aria-label="Exportar campeões em PDF">Exportar Campeões em PDF</button>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+(() => {
+  function loadDivisions() {
+    return {
+      div1: JSON.parse(localStorage.getItem('div1')) || [],
+      div2: JSON.parse(localStorage.getItem('div2')) || []
+    };
+  }
+  function calcPointsAndGames(team) {
+    return {
+      pontos: team.v * 3 + team.e,
+      jogos: team.v + team.e + team.d
+    };
+  }
+  function sortDivision(div) {
+    div.sort((a,b) => {
+      const ptsA = a.v * 3 + a.e;
+      const ptsB = b.v * 3 + b.e;
+      if(ptsB !== ptsA) return ptsB - ptsA;
+      if(b.v !== a.v) return b.v - a.v;
+      if(b.g !== a.g) return b.g - a.g;
+      return a.nome.localeCompare(b.nome);
+    });
+  }
+  function renderTable(tbody, div) {
+    tbody.innerHTML = '';
+    sortDivision(div);
+    div.forEach((team, i) => {
+      const {pontos, jogos} = calcPointsAndGames(team);
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td>${team.nome}</td>
+        <td>${pontos}</td>
+        <td>${jogos}</td>
+        <td>${team.v}</td>
+        <td>${team.e}</td>
+        <td>${team.d}</td>
+        <td>${team.g}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+  function loadChampions() {
+    return JSON.parse(localStorage.getItem('championsList')) || [];
+  }
+  function renderChampionsList() {
+    const ul = document.getElementById('championsList');
+    const list = loadChampions();
+    ul.innerHTML = '';
+    if(list.length === 0) {
+      ul.innerHTML = '<li>Nenhuma temporada finalizada ainda.</li>';
+      return;
+    }
+    list.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `[${item.date}] 1ª Divisão: ${item.campeaoDiv1} | 2ª Divisão: ${item.campeaoDiv2}`;
+      ul.appendChild(li);
+    });
+  }
+  // Exportar campeões em PDF
+  function exportChampionsPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const list = loadChampions();
+
+    doc.setFontSize(16);
+    doc.text('Campeões Anteriores', 14, 20);
+
+    if (list.length === 0) {
+      doc.setFontSize(12);
+      doc.text('Nenhuma temporada finalizada ainda.', 14, 30);
+    } else {
+      doc.setFontSize(12);
+      let y = 30;
+      list.forEach((item, idx) => {
+        const line = `[${item.date}] 1ª Divisão: ${item.campeaoDiv1} | 2ª Divisão: ${item.campeaoDiv2}`;
+        doc.text(line, 14, y);
+        y += 10;
+        if (y > 280) {
+          doc.addPage();
+          y = 20;
+        }
+      });
+    }
+    doc.save('campeoes_anteriores.pdf');
+  }
+  // Setup abas
+  function setupTabs() {
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        if(button.classList.contains('active')) return;
+        buttons.forEach(b => {
+          b.classList.remove('active');
+          document.getElementById(b.dataset.tab).hidden = true;
+          document.getElementById(b.dataset.tab).setAttribute('aria-hidden', 'true');
+          b.setAttribute('aria-selected', 'false');
+        });
+        button.classList.add('active');
+        const tabId = button.dataset.tab;
+        const tabContent = document.getElementById(tabId);
+        tabContent.hidden = false;
+        tabContent.setAttribute('aria-hidden', 'false');
+        button.setAttribute('aria-selected', 'true');
+        tabContent.focus();
+      });
+    });
+  }
+  function init() {
+    setupTabs();
+
+    const {div1, div2} = loadDivisions();
+
+    renderTable(document.querySelector('#tableDiv1 tbody'), div1);
+    renderTable(document.querySelector('#tableDiv2 tbody'), div2);
+    renderChampionsList();
+
+    document.getElementById('btnExportChampionsPDF').addEventListener('click', exportChampionsPDF);
+  }
+  window.addEventListener('load', init);
+})();
+</script>
+
+</body>
+</html>
